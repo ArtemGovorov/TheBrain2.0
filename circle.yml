@@ -22,8 +22,8 @@ jobs:
           keys:
             - npm-server-deps-{{ checksum "./server/package.json" }}
       - run:
-        name: "install server packages"
-        command: pushd ~/TheBrain2.0/server/ ; npm install
+          name: "install server packages"
+          command: pushd ~/TheBrain2.0/server/ ; npm install
       - run: pushd ~/TheBrain2.0/server/ ; CI=true npm test
       - save_cache:
           key: npm-server-deps-{{ checksum "./server/package.json" }}
