@@ -29,7 +29,8 @@ jobs:
           name: "run server integration/unit tests"
           working_directory: "~/TheBrain2.0/server/"
           command: npm test
-          environment: CI=true
+          environment:
+            - CI: true
       - save_cache:
           key: npm-server-deps-{{ checksum "./server/package.json" }}
           paths:
@@ -38,7 +39,8 @@ jobs:
           name: "collect server integration/unit tests coverage"
           working_directory: "~/TheBrain2.0/server/artifacts"
           command: ../node_modules/.bin/codecov -f lcov.info
-          environment: CODECOV_TOKEN="c2740296-3f65-4994-beac-37a127192011"
+          environment:
+            - CODECOV_TOKEN: "c2740296-3f65-4994-beac-37a127192011"
       - run:
           name: "validate standard linting rules on server"
           working_directory: "~/TheBrain2.0/server/"
