@@ -10,16 +10,20 @@ jobs:
       - run:
           name: install wait-on
           command: npm install -g wait-on
-      - run: mkdir -p ~/TheBrain2.0/server/artifacts
-      - run: mkdir -p ~/TheBrain2.0/client/artifacts
-      - run: mkdir -p ~/TheBrain2.0/mobileClient/artifacts
-      - run: ls -la ~/TheBrain2.0/
+      - run:
+          name: create artifacts folders
+          command: |
+            mkdir -p ~/TheBrain2.0/server/artifacts
+            mkdir -p ~/TheBrain2.0/client/artifacts
+            mkdir -p ~/TheBrain2.0/mobileClient/artifacts
 #      - run: pushd ~/TheBrain2.0/server/
 #      - run: pushd ~/TheBrain2.0/server/ ; npm run startTestingDB
       - restore_cache:
           keys:
             - npm-server-deps-{{ checksum "./server/package.json" }}
-      - run: pushd ~/TheBrain2.0/server/ ; npm install
+      - run:
+        name: "install server packages"
+        command: pushd ~/TheBrain2.0/server/ ; npm install
       - run: pushd ~/TheBrain2.0/server/ ; CI=true npm test
       - save_cache:
           key: npm-server-deps-{{ checksum "./server/package.json" }}
